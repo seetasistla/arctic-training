@@ -1,0 +1,22 @@
+---
+title: "Training day 3"
+author: "Sistla"
+date: "January 16, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, warning = F, message = F}
+library(dplyr)
+library(tidyr)
+
+```
+ 
+#Data cleaning
+
+#Spit-apply-continue
+
+#Joins
