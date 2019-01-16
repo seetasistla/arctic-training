@@ -7,8 +7,10 @@ this repository is used as an introduction to git
 x<-36
 q<-7
 
-<<<<<<< HEAD
+
 Really change this time
-=======
+
 Hello!!!!! Doing this properly (hopefully)
->>>>>>> 3d20cfb9cafbcd218ef4b7363b7c59eb13ae86e1
+
+
+Hello 
