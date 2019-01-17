@@ -47,3 +47,56 @@ Look at datatable (DT library)
 datatable(annual_esc)
 ```
 
+
+#static plots
+
+```{r}
+ggplot(data = annual_esc, mapping = aes(x = Species, y = escapement, fill = SASAP.Region)) +
+  geom_col() 
+```
+
+```{r}
+#create object for theme
+my_theme <-   theme_bw()+
+  theme_minimal()
+
+ggplot(data = filter(annual_esc, SASAP.Region == "Kodiak"),
+       aes(x = year, y = escapement, color = Species)) +
+  geom_line()+
+geom_point()+
+  ylab("escapement (# of fish)")+
+  ggtitle("Kodiak salmon escapement")+
+  my_theme
+ 
+      
+```
+
+
+```{r}
+ggplot(annual_esc, aes(x = year, y = escapement, color = Species))+
+  geom_line()+
+  geom_point()+
+  facet_wrap(~SASAP.Region, scales = "free_y")+
+  my_theme
+```
+
+
+```{r, fig.height = 10, fig.width = 8}
+p <- ggplot(annual_esc, aes(x = year, y = escapement, color = Species))+
+  geom_line()+
+  geom_point()+
+  facet_wrap(~SASAP.Region, scales = "free", ncol = 2)+
+  my_theme
+
+p
+ggsave("region_escapement.png", plot = p, height = 10, width = 8, units = "in")
+
+
+```
+
+
+```{r}
+write.csv(annual_esc, "annual_escapement.csv",
+          row.names = F)
+```
+
