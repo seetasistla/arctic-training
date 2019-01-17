@@ -1,12 +1,49 @@
 ---
-title: "day 4 training"
+title: "day_4_training"
 author: "Sistla"
 date: "January 17, 2019"
 output: html_document
 ---
+```{r}
+ library(leaflet)
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
+  library(DT)
+```
 
+  
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## data training chpt 13. Download data from website.
+
+```{r}
+esc <-read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e", method = "libcurl"), stringsAsFactors = FALSE)
+
+head(esc)
  
+```
+
+Calculate annial, regional total escapement
+*separate the date into year - month - day
+*group_by, summarize to calclate the sum over unique region-year species cominations
+*filter for salmon species
+
+```{r}
+annual_esc <- esc %>% 
+  separate(sampleDate, into = c("year", "month", "day"), sep = "-") %>% 
+  mutate(year = as.numeric(year)) %>% 
+  group_by(SASAP.Region, Species, year) %>% 
+  summarize(escapement = sum(DailyCount)) %>% 
+  filter(Species %in% c("Chinook", "Sockeye", "Pink", "Chum", "Coho"))
+
+head(annual_esc)
+```
+Look at datatable (DT library)
+
+```{r}
+datatable(annual_esc)
+```
+
